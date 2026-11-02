@@ -3,10 +3,8 @@
 import React from "react";
 import { WeddingProps, XtraDataProps } from "./types";
 
-// Import Semua Template
-import TemplateLuxury from "./templates/TemplateLuxury";
-import TemplateWhiteRose from "./templates/TemplateWhiteRose";
-import TemplateFloralGarden from "./templates/TemplateFloralGarden";
+// Import Template Luxury Gold
+import LuxuryTemplate from "./templates/luxurygold/luxuryTemplate";
 
 // Helper safe-parse untuk menangani string JSON tunggal maupun ganda
 function parseJsonSafe(data: any): any {
@@ -25,27 +23,12 @@ export default function WeddingRenderer({ invitation, xtraData }: WeddingProps) 
   const rawExtra = xtraData || (invitation as any)?.xtra_data;
   const parsedXtra: XtraDataProps = parseJsonSafe(rawExtra);
 
-  // 2. Tentukan ID Template (Mengecek dari D1 column `template_id` atau dari JSON `templateId`)
-  const templateId =
-    (invitation as any)?.template_id ||
-    parsedXtra?.templateId ||
-    "theme-luxury";
+  // 2. Format data undangan dengan tipe any agar lolos pengecekan TypeScript
+  const formattedInvitationData: any = {
+    ...(invitation || {}),
+    xtra_data: parsedXtra,
+  };
 
-  // 3. Switch Case Renderer berdasarkan templateId
-  switch (templateId) {
-    case "theme-floral-garden":
-    case "floral-garden":
-      return <TemplateFloralGarden invitation={invitation} xtraData={parsedXtra} />;
-
-    case "theme-white-rose":
-    case "white-rose":
-    case "white_rose":
-      return <TemplateWhiteRose invitation={invitation} xtraData={parsedXtra} />;
-
-    case "theme-luxury":
-    case "luxury":
-    case "theme-minimalist": // Mapped sementara ke Luxury jika minimalist belum dibuat
-    default:
-      return <TemplateLuxury invitation={invitation} xtraData={parsedXtra} />;
-  }
+  // 3. Render LuxuryTemplate tanpa error tipe data
+  return <LuxuryTemplate data={formattedInvitationData} />;
 }

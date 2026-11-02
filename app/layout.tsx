@@ -1,5 +1,11 @@
 import "./global.css"; // <-- Pastikan baris ini ada!
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1, // Mencegah iPhone melakukan zoom in/out
+  userScalable: false,
+};
 
 export const metadata = {
   title: "Lestari Project Digital Invitation",

@@ -32,12 +32,11 @@ async function queryRemoteD1(sql: string, params: any[] = []) {
   return json.result?.[0]?.results || [];
 }
 
-// POST: Simpan RSVP ke Database D1
+// POST: Simpan RSVP ke Database D1 dengan Rate Limiting IP & Kolom IP Address
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     
-    // Support kedua format parameter (camelCase / snake_case) agar fleksibel
     const invitationId = body.invitation_id || body.invitationId;
     const nama = body.nama;
     const kehadiran = body.kehadiran || "Hadir";
@@ -51,14 +50,46 @@ export async function POST(request: Request) {
       );
     }
 
+    // 1. Ambil IP Address Klien (Mendukung Vercel, Cloudflare, atau Proxy)
+    const forwardedFor = request.headers.get("x-forwarded-for");
+    const clientIp = forwardedFor ? forwardedFor.split(",")[0].trim() : request.headers.get("cf-connecting-ip") || "unknown";
+
+    // 2. CEK RATE LIMIT IP (Maksimal 7 pesan per IP dalam 1 jam terakhir)
+    // Pastikan tabel rsvps kamu memiliki kolom `ip_address`. Jika belum ada, jalankan ALTER TABLE.
+    const checkIpSql = `
+      SELECT COUNT(*) as total 
+      FROM rsvps 
+      WHERE invitation_id = ? 
+        AND ip_address = ? 
+        AND created_at >= DATETIME('now', '-1 hour')
+    `;
+    
+    try {
+      const ipCheckResult = await queryRemoteD1(checkIpSql, [invitationId, clientIp]);
+      const recentCount = ipCheckResult?.[0]?.total || 0;
+
+      if (recentCount >= 7) {
+        return NextResponse.json(
+          { 
+            success: false, 
+            message: "Batas pengiriman pesan dari jaringan/perangkat ini telah tercapai (Maksimal 7 pesan per jam)." 
+          },
+          { status: 429 } // Status 429 Too Many Requests
+        );
+      }
+    } catch (dbErr) {
+      // Mengantisipasi jika kolom ip_address belum sempat dibuat di database, sistem tetap aman berjalan
+      console.warn("⚠️ Peringatan: Kolom ip_address mungkin belum ada di tabel rsvps D1.", dbErr);
+    }
+
     const id = crypto.randomUUID();
 
-    // Simpan ke D1
+    // 3. Simpan ke D1 (Menyertakan clientIp ke dalam kolom ip_address)
     const sql = `
-      INSERT INTO rsvps (id, invitation_id, nama, kehadiran, jumlah_tamu, ucapan, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, DATETIME('now'))
+      INSERT INTO rsvps (id, invitation_id, nama, kehadiran, jumlah_tamu, ucapan, ip_address, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, DATETIME('now'))
     `;
-    await queryRemoteD1(sql, [id, invitationId, nama, kehadiran, jumlahTamu, ucapan.trim()]);
+    await queryRemoteD1(sql, [id, invitationId, nama, kehadiran, jumlahTamu, ucapan.trim(), clientIp]);
 
     return NextResponse.json({
       success: true,
@@ -78,7 +109,6 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    // Support ?invitation_id=... maupun ?invitationId=...
     const invitationId = searchParams.get("invitation_id") || searchParams.get("invitationId");
 
     if (!invitationId) {

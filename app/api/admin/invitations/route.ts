@@ -423,7 +423,7 @@ export async function PUT(request: Request) {
       );
     }
 
-    // Ekstraksi fitur tambahan (whatsappPengantin & enableWaNotification diabaikan/dihapus)
+    
     const {
       musicOption,
       customMusicUrl,

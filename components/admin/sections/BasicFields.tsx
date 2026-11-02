@@ -182,7 +182,7 @@ export default function BasicFields({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label className="block text-xs font-medium text-slate-300">
-            2. Nama Panggilan Pria
+            2. Nama Panggilan Atau Inisial Pria 
           </label>
           <input
             type="text"
@@ -196,7 +196,7 @@ export default function BasicFields({
         </div>
         <div>
           <label className="block text-xs font-medium text-slate-300">
-            3. Nama Panggilan Wanita
+            3. Nama Panggilan Atau Inisial Wanita
           </label>
           <input
             type="text"
