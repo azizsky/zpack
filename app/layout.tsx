@@ -3,13 +3,13 @@ import "./global.css"; // <-- Pastikan baris ini ada!
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1, // Mencegah iPhone melakukan zoom in/out
+  maximumScale: 1,
   userScalable: false,
 };
 
 export const metadata = {
-  title: "Lestari Project Digital Invitation",
-  description: "Platform Undangan Digital Modern & Elegan",
+  title: "ZPack Printing & Packaging",
+  description: "Jasa Percetakan Custom Printing & Packaging Solution",
 };
 
 export default function RootLayout({
@@ -18,27 +18,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    /* Tambahkan suppressHydrationWarning di sini agar tidak error saat sinkronisasi tema */
-    <html lang="id" suppressHydrationWarning>
-      <body className="min-h-screen bg-zinc-100 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300">
+    <html lang="id" suppressHydrationWarning className="dark overflow-x-clip">
+      <body className="min-h-screen text-slate-900 dark:text-slate-50 transition-colors duration-300 overflow-x-clip w-full relative">
         
-        {/* Skrip Inline untuk Mencegah Kedip Light Mode saat Refresh */}
+        {/* Skrip Inline: Default selalu Dark Mode kecuali user memilih 'light' */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.classList.add('dark');
-                } else {
+                if (localStorage.theme === 'light') {
                   document.documentElement.classList.remove('dark');
+                } else {
+                  document.documentElement.classList.add('dark');
                 }
               } catch (_) {}
             `,
           }}
         />
 
-        {/* Konten halaman utama / halaman lain */}
-        <main className="pt-16">{children}</main>
+        {/* Lapisan Background Tetap (Fixed) */}
+        <div className="fixed inset-0 -z-10 bg-gradient-to-t from-white via-slate-200 to-slate-300 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 transition-colors duration-300 pointer-events-none" />
+
+        {/* Konten halaman utama */}
+        <main className="pt-12 overflow-x-clip w-full">{children}</main>
       </body>
     </html>
   );

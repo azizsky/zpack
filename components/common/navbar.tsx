@@ -80,14 +80,15 @@ export default function Navbar() {
     }
   };
 
-  // Daftar menu navigasi utama
+  // Daftar menu navigasi utama (disesuaikan untuk ZPack)
   const navLinks = [
-    { name: 'Template', href: '/template' },
-    { name: 'Harga & Paket', href: '/paket' },
-    { name: 'Musik Latar', href: '/music' },
-    { name: 'AI Assistant 🤖', href: '/ai-assistant' },
-    { name: 'Tentang', href: '/about' },
-    { name: 'Kontak', href: '/kontak' },
+    { name: 'Home', href: '/' },
+    { name: 'Produk', href: '/produk' },
+    { name: 'Z-Ai-Assistant', href: '/Z-Ai-Assistant' },
+    { name: 'Layanan', href: '/Layanan' },
+    { name: 'Tentang', href: '/Tentang' },
+    { name: 'Kontak', href: '/Kontak' },
+    { name: 'Artikel', href: '/Artikel' },
   ];
 
   return (
@@ -97,14 +98,14 @@ export default function Navbar() {
           showNavbar ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
 
           {/* LOGO */}
           <Link href="/" className="flex items-center">
             {/* Logo Light Mode */}
             <Image
               src="/logo.png"
-              alt="LestariProject"
+              alt="ZPack"
               width={150}
               height={45}
               priority
@@ -114,7 +115,7 @@ export default function Navbar() {
             {/* Logo Dark Mode */}
             <Image
               src="/logo-white.png"
-              alt="LestariProject"
+              alt="ZPack"
               width={150}
               height={45}
               priority
@@ -123,7 +124,7 @@ export default function Navbar() {
           </Link>
 
           {/* MENU DESKTOP */}
-          <nav className="hidden md:flex items-center gap-2">
+          <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -132,8 +133,8 @@ export default function Navbar() {
                   href={link.href}
                   className={`px-3.5 py-1.5 rounded-md text-sm font-medium transition-all ${
                     isActive
-                      ? 'bg-blue-600 dark:bg-indigo-600 text-white font-bold shadow-sm'
-                      : 'text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400'
+                      ? 'bg-slate-600 dark:bg-amber-300 text-white dark:text-black font-bold shadow-sm'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-sky-600 dark:hover:text-amber-400'
                   }`}
                 >
                   {link.name}
@@ -191,7 +192,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
           <span className="font-bold text-lg text-slate-900 dark:text-white">
-            Menu Lestari Project
+            Menu ZPack
           </span>
 
           <button

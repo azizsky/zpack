@@ -55,7 +55,7 @@ export default function AdminLoginPage() {
             🔒
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-white">
-            lestari project digital invitation Admin
+            zpack platform digital invitation Admin panel
           </h1>
           <p className="mt-1 text-xs text-slate-400">
             Masuk untuk mengelola sistem undangan

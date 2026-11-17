@@ -8,7 +8,7 @@ interface Message {
   content: string;
 }
 
-const STORAGE_KEY = 'lestari_ai_chat_history';
+const STORAGE_KEY = 'zpack_ai_chat_history';
 const TIME_LIMIT_HOURS = 2; // Batas waktu kedaluwarsa riwayat chat (2 jam)
 
 export default function AiAssistantPage() {
@@ -45,7 +45,7 @@ export default function AiAssistantPage() {
     setMessages([
       {
         role: 'assistant',
-        content: 'Halo! Saya Lestari AI dari Lestari Project. Ada yang bisa saya bantu seputar paket undangan digital, update template bulanan, atau cetak undangan fisik?',
+        content: 'Halo! Saya Z-Ai dari ZPack Printing & Packaging. Ada yang bisa saya bantu seputar kemasan custom, estimasi harga cetak, atau rekomendasi bahan?',
       },
     ]);
   }, []);
@@ -117,27 +117,37 @@ export default function AiAssistantPage() {
   };
 
   return (
-    <div className="w-full min-h-[100dvh] bg-zinc-200 dark:bg-slate-950 transition-colors duration-200 flex flex-col">
+    <div className="w-full h-[100dvh] flex flex-col overflow-hidden bg-slate-100/60 dark:bg-[#0b101b] transition-colors duration-200">
       <Navbar />
 
-      {/* Kontainer utama menggunakan h-[100dvh] agar menyesuaikan tinggi layar HP secara akurat saat keyboard muncul */}
-      <main className="w-full max-w-4xl mx-auto flex-1 flex flex-col pt-20 pb-4 px-3 sm:px-4 h-[100dvh] overflow-hidden">
+      {/* Area Chat Utama: Tanpa kotak card luar, menyatu penuh dengan layar */}
+      <main className="w-full flex-1 flex flex-col pt-20 overflow-hidden">
         
-        {/* Chat Box Container */}
-        <div className="flex-1 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-2xl shadow-md flex flex-col overflow-hidden">
-          
-          {/* Area Pesan Chat */}
-          <div className="flex-1 p-3 sm:p-5 overflow-y-auto flex flex-col gap-3 sm:gap-4 scroll-smooth bg-slate-50/50 dark:bg-slate-900/50">
+        {/* Area Scroll Pesan (Scrollbar di tepi layar kanan seperti WA Web) */}
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6 scroll-smooth">
+          {/* Pembatas lebar tengah (max-w-4xl) agar di laptop nyaman dibaca dan tidak melebar ke pinggir */}
+          <div className="max-w-4xl mx-auto flex flex-col gap-3 sm:gap-4">
+            
             {messages.map((msg, index) => (
               <div
                 key={index}
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`flex items-end gap-2.5 ${
+                  msg.role === 'user' ? 'justify-end' : 'justify-start'
+                }`}
               >
+                {/* Avatar kecil khusus AI di sebelah kiri */}
+                {msg.role === 'assistant' && (
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-600 dark:text-[#d4af37] flex items-center justify-center text-[10px] sm:text-xs font-extrabold shrink-0 mb-0.5">
+                    AI
+                  </div>
+                )}
+
+                {/* Gelembung Chat ala WhatsApp */}
                 <div
-                  className={`max-w-[88%] sm:max-w-[78%] px-4 py-2.5 sm:py-3 rounded-2xl text-xs sm:text-sm leading-relaxed whitespace-pre-line shadow-xs ${
+                  className={`max-w-[84%] sm:max-w-[74%] px-4 py-2.5 sm:py-3 rounded-2xl text-xs sm:text-sm leading-relaxed whitespace-pre-line shadow-xs ${
                     msg.role === 'user'
-                      ? 'bg-indigo-600 text-white rounded-br-xs font-medium'
-                      : 'bg-blue-600 dark:bg-slate-700 text-white dark:text-slate-100 rounded-bl-xs border border-slate-300 dark:border-slate-700/80 shadow-xs'
+                      ? 'bg-blue-700 text-slate200 font-medium rounded-br-xs'
+                      : 'bg-white dark:bg-[#182234] text-slate-800 dark:text-slate-100 rounded-bl-xs border border-slate-200/80 dark:border-white/[0.08]'
                   }`}
                 >
                   {msg.content}
@@ -147,39 +157,46 @@ export default function AiAssistantPage() {
 
             {/* Indicator Loading */}
             {loading && (
-              <div className="flex justify-start">
-                <div className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-300 dark:border-slate-700 px-4 py-2.5 rounded-2xl text-xs sm:text-sm animate-pulse flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce"></div>
-                  <span>Lestari AI sedang mengetik...</span>
+              <div className="flex items-end gap-2.5 justify-start">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-600 dark:text-[#d4af37] flex items-center justify-center text-[10px] sm:text-xs font-extrabold shrink-0 mb-0.5">
+                  AI
+                </div>
+                <div className="bg-white dark:bg-[#182234] text-slate-600 dark:text-slate-400 border border-slate-200/80 dark:border-white/[0.08] px-4 py-2.5 rounded-2xl rounded-bl-xs text-xs sm:text-sm flex items-center gap-2 shadow-xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce [animation-delay:0.15s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce [animation-delay:0.3s]" />
+                  <span className="ml-1">Z-Ai sedang mengetik...</span>
                 </div>
               </div>
             )}
-            
+
             <div ref={messagesEndRef} />
           </div>
+        </div>
 
-          {/* Form Input Sticky yang aman dari tertutup keyboard HP */}
-          <form 
-            onSubmit={handleSubmit} 
-            className="p-2.5 sm:p-3 bg-white dark:bg-slate-900 border-t border-slate-300 dark:border-slate-800 flex gap-2 shrink-0 sticky bottom-0 z-10"
+        {/* Bar Input Bawah: Terbuka & menempel rapi di bawah layar */}
+        <div className="w-full px-4 sm:px-6 pt-2 pb-4 sm:pb-5 bg-gradient-to-t from-slate-100 via-slate-100/95 to-transparent dark:from-[#0b101b] dark:via-[#0b101b]/95 dark:to-transparent shrink-0">
+          <form
+            onSubmit={handleSubmit}
+            className="max-w-4xl mx-auto flex items-center gap-2 sm:gap-3"
           >
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Tanya paket Basic, Premium, Exclusive, atau template..."
-              className="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:bg-white dark:focus:bg-slate-800 transition"
+              placeholder="Tanya jenis bahan kemasan, ukuran box, atau estimasi harga..."
+              className="flex-1 bg-white dark:bg-[#161f30] border border-slate-300 dark:border-white/10 rounded-full px-4 sm:px-5 py-3 text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 focus:outline-none focus:border-amber-500 dark:focus:border-[#d4af37] shadow-sm transition-colors"
             />
             <button
               type="submit"
-              disabled={loading}
-              className="bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition disabled:opacity-50 cursor-pointer shrink-0 shadow-xs"
+              disabled={loading || !input.trim()}
+              className="bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 px-5 sm:px-7 py-3 rounded-full text-xs sm:text-sm font-bold transition-all disabled:opacity-40 cursor-pointer shrink-0 shadow-sm"
             >
               Kirim
             </button>
           </form>
-
         </div>
+
       </main>
     </div>
   );
