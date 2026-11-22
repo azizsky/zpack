@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-
+import Image from 'next/image';
 
 export default function ProdukPage() {
   const searchParams = useSearchParams();
@@ -101,4 +101,4 @@ export default function ProdukPage() {
 
     </div>
   );
-}  
+}
