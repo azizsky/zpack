@@ -16,7 +16,7 @@ export interface AdminCategoryItem {
 /**
  * Komponen Card satuan yang bisa dipakai ulang atau di-map di grid admin
  */
-export function AdminMenuCard({ item }: { item: AdminCategoryItem }) {
+function AdminMenuCard({ item }: { item: AdminCategoryItem }) {
   return (
     <Link
       href={item.href}
