@@ -2,56 +2,132 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Navbar from "@/components/common/navbar"; // Sesuaikan jalur impor navbar kamu
+import Navbar from '@/components/common/navbar';
 
 export default function TentangPage() {
   const machines = [
     {
       code: '01',
-      name: ' Heidelberg & Speed Master',
-      category: 'Cetak Warna Presisi',
-      desc: 'Mesin cetak offset standar kelas industri untuk menghasilkan ketajaman detail grafis, akurasi warna CMYK/Pantone yang konsisten, serta efisiensi biaya pada produksi skala menengah hingga besar.',
+      name: 'Heidelberg GTO 52',
+      category: 'Mesin Cetak Offset Lembaran',
+      desc: 'Mesin cetak offset standar untuk kebutuhan cetakan komersial, nota, amplop, brosur, serta kemasan dengan detail grafis tajam dan konsisten.',
     },
-     {
+    {
       code: '02',
-      name: 'Polar Guillotine Paper Cutter',
-      category: 'Pemotongan Kertas Presisi Tinggi',
-      desc: 'Sistem pemotongan kertas otomatis berakurasi tinggi untuk memastikan ukuran bahan baku maupun hasil akhir potong rata tanpa selisih milimeter.',
+      name: 'Heidelberg Speedmaster',
+      category: 'Mesin Cetak Offset Multi-Warna',
+      desc: 'Mesin offset multi-unit untuk produksi cetakan warna berkecepatan tinggi dan presisi stabil pada skala menengah hingga besar.',
     },
     {
       code: '03',
-      name: 'Mesin Pond & Die-Cutting',
-      category: 'Potong Pola & Rel Lipatan',
-      desc: 'Pemotongan pola kemasan (die-cut) dan garis lipatan (creasing) secara presisi agar setiap box mudah dirakit, kokoh, dan memiliki sudut lipatan yang rapi.',
+      name: 'Mesin CTP (Computer to Plate)',
+      category: 'Pembuatan Plat Offset Digital',
+      desc: 'Proses pembuatan plat cetak langsung dari file digital secara presisi untuk menjaga ketajaman titik raster dan akurasi registrasi warna sebelum naik cetak offset.',
     },
     {
       code: '04',
-      name: 'In-House Finishing Line',
-      category: 'Laminasi, Foil & Emboss',
-      desc: 'Pengerjaan finishing langsung di workshop—mulai dari laminasi Doff/Glossy, Hotprint Foil emas/silver, hingga Emboss dan Deboss untuk kesan kemasan yang eksklusif.',
+      name: 'Printer Epson A3',
+      category: 'Cetak Proofing & Ukuran A3',
+      desc: 'Digunakan untuk mencetak proof/sample layout, mockup desain, atau cetakan ukuran A3 sebelum maupun di luar alur produksi offset.',
+    },
+    {
+      code: '05',
+      name: 'Polar Guillotine Paper Cutter',
+      category: 'Pemotongan Kertas Industri',
+      desc: 'Sistem pemotong kertas industri berakurasi tinggi untuk memotong plano maupun merapikan hasil cetak dengan presisi.',
+    },
+    {
+      code: '06',
+      name: 'Mesin Pond & Die-Cutting',
+      category: 'Potong Pola & Rel Lipatan',
+      desc: 'Pemotongan pola kemasan (die-cut) dan garis lipatan (creasing) secara presisi agar box mudah dirakit, kokoh, dan sudut lipatannya rapi.',
+    },
+    {
+      code: '07',
+      name: 'Roll Laminating Machine',
+      category: 'Laminasi Doff / Glossy',
+      desc: 'Mesin laminasi gulungan untuk melapisi permukaan cetakan dan kemasan agar lebih awet, terlindungi, dan tampil lebih eksklusif.',
+    },
+    {
+      code: '08',
+      name: 'Hot Foil & Emboss Machine',
+      category: 'Poly / Foil & Cetak Timbul',
+      desc: 'Pengerjaan hotprint foil (emas, silver, dll.) maupun emboss untuk menonjolkan logo dan identitas brand pada kemasan atau kartu.',
+    },
+    {
+      code: '09',
+      name: 'Mesin Lem (Grakitec)',
+      category: 'Perekat & Finishing Kemasan / Jilid',
+      desc: 'Digunakan untuk proses pengeleman dan perapihan sambungan kemasan atau jilidan sesuai kebutuhan produksi.',
+    },
+    {
+      code: '10',
+      name: 'Large Format Banner & Plotter Printer',
+      category: 'Cetak Format Lebar (Roll & Plotter)',
+      desc: 'Menangani cetakan format besar seperti banner/spanduk gulungan serta cetakan lebar/plotter sesuai kebutuhan promosi maupun teknis.',
     },
   ];
 
   const workflowSteps = [
     {
       step: '01',
-      title: 'Konsultasi Spesifikasi',
-      desc: 'Diskusikan ukuran produk, pemilihan bahan kertas (Ivory, Duplex, Kraft, Art Carton), serta estimasi budget bersama tim kami.',
+      title: 'Konsultasi Produk, Ukuran, Bahan & Finishing',
+      desc: 'Diskusikan detail produk yang akan dikemas atau dicetak, ukuran presisi, pilihan jenis bahan, serta opsi finishing yang diinginkan bersama tim ZPack.',
     },
     {
       step: '02',
-      title: 'Desain & Sample Mockup',
-      desc: 'Nikmati fasilitas Free Desain dan pembuatan Sample Dummy fisik agar Anda bisa fitting ukuran & ketebalan bahan sebelum cetak massal.',
+      title: 'Deal Harga & DP Minimal 60%',
+      desc: 'Setelah spesifikasi dan total biaya disepakati (deal harga), pesanan diproses dengan pembayaran DP minimal 60% dari total tagihan.',
     },
     {
       step: '03',
-      title: 'Produksi & Quality Control',
-      desc: 'Proses cetak offset, finishing, dan die-cutting dikerjakan in-house dengan pengawasan ketat di setiap tahap produksi.',
+      title: 'Proses Desain (Jika Belum Punya) & Mockup',
+      desc: 'Jika belum memiliki desain siap cetak, tim kami bantu proses desain sekaligus pembuatan mockup/sample agar tata letak dan bentuk kemasan tergambar jelas.',
     },
     {
       step: '04',
-      title: 'Pengiriman & Garansi',
-      desc: 'Pesanan dikemas aman dan dikirim ke lokasi Anda (Free Ongkir se-Kota Bandung) lengkap dengan jaminan Garansi Cacat Produksi.',
+      title: 'Finalisasi / ACC Fix',
+      desc: 'Seluruh detail desain, ukuran, bahan, dan mockup dikonfirmasi hingga status FIX sebelum masuk ke tahap produksi massal.',
+    },
+    {
+      step: '05',
+      title: 'Potong Bahan',
+      desc: 'Bahan baku dipersiapkan dan dipotong sesuai ukuran kerja/plano agar siap masuk ke mesin cetak.',
+    },
+    {
+      step: '06',
+      title: 'Proses Cetak',
+      desc: 'Hasil desain yang sudah fix masuk ke tahap pencetakan dengan pengaturan warna dan ketajaman yang terjaga.',
+    },
+    {
+      step: '07',
+      title: 'Laminasi',
+      desc: 'Permukaan hasil cetak dilapisi laminasi (sesuai opsi finishing) untuk perlindungan ekstra sekaligus tampilan yang lebih rapi.',
+    },
+    {
+      step: '08',
+      title: 'Foil atau Emboss (Jika Pakai)',
+      desc: 'Jika menggunakan opsi tambahan, dilakukan proses hot foil atau emboss untuk menonjolkan aksen kilau maupun tekstur timbul.',
+    },
+    {
+      step: '09',
+      title: 'Mesin Cutting & Creasing',
+      desc: 'Pengerjaan potong pola (cutting) dan pembuatan garis lipat (creasing/pond) agar bentuk kemasan presisi dan mudah dilipat.',
+    },
+    {
+      step: '10',
+      title: 'Quality Control & Packing',
+      desc: 'Setiap batch melalui pengecekan kualitas (QC) untuk memastikan kerapihan hasil, lalu dikemas dengan aman sebelum dikirim.',
+    },
+    {
+      step: '11',
+      title: 'Pelunasan & Pengiriman',
+      desc: 'Setelah produksi selesai dan pelunasan dilakukan, pesanan dikirim ke alamat tujuan (Free Ongkir se-Kota Bandung atau ekspedisi luar kota).',
+    },
+    {
+      step: '12',
+      title: 'Garansi Lifetime',
+      desc: 'Dilengkapi komitmen garansi lifetime sesuai ketentuan layanan ZPack untuk ketenangan dan kepercayaan jangka panjang klien.',
     },
   ];
 
@@ -61,7 +137,6 @@ export default function TentangPage() {
 
       {/* 1. HERO / PROFIL SINGKAT ZPACK */}
       <section className="relative w-full py-12 sm:py-16 lg:py-24 overflow-hidden">
-        {/* Ambient Glow halus */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] sm:w-[780px] h-[260px] rounded-full blur-[110px] -z-10"
@@ -73,20 +148,20 @@ export default function TentangPage() {
               TENTANG ZPACK PRINTING &amp; PACKAGING
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-[3rem] font-extrabold tracking-[-0.5px] leading-[1.18] text-slate-900 dark:text-white mb-6">
-              Mitra Produksi Kemasan Custom Tangan Pertama untuk UMKM hingga Korporat
+              Berdiri Sejak 2018, Dipercaya Banyak UMKM hingga Pelaku Usaha
             </h1>
             <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base lg:text-[1.08rem] leading-relaxed mb-8">
-              Berbasis di Kota Bandung, ZPack hadir untuk mendapatkan kemasan produk berkualitas industri—mulai dari box makanan food-grade, dus kosmetik &amp; skincare, paperbag, hingga cetakan komersial—dengan harga langsung pabrik dan pendampingan teknis dari nol.
+              Berdiri sejak <strong className="text-slate-900 dark:text-white">2018</strong> dan berbasis di Kota Bandung, ZPack telah dipercaya oleh banyak <strong className="text-slate-900 dark:text-white">UMKM</strong>, brand lokal, serta pelaku usaha untuk memenuhi kebutuhan packaging makanan, skincare &amp; kosmetik, hardbox, paper bag, cetakan komersial, hingga undangan digital dengan pendampingan yang praktis dan jelas.
             </p>
 
             {/* Ringkasan Angka Kunci (Editorial Borderless Strip) */}
             <div className="grid grid-cols-3 gap-4 sm:gap-8 pt-6 border-t border-slate-200 dark:border-white/10 max-w-xl">
               <div>
                 <span className="block text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 dark:text-white tabular-nums">
-                  80.000+
+                  2018
                 </span>
                 <span className="text-[11px] sm:text-xs text-amber-600 dark:text-[#d4af37] font-semibold uppercase tracking-wide">
-                  Kapasitas Pcs / Hari
+                  Tahun Berdiri
                 </span>
               </div>
               <div>
@@ -94,7 +169,7 @@ export default function TentangPage() {
                   129+
                 </span>
                 <span className="text-[11px] sm:text-xs text-amber-600 dark:text-[#d4af37] font-semibold uppercase tracking-wide">
-                  Brand &amp; UMKM Mitra
+                  UMKM &amp; Klien Mitra
                 </span>
               </div>
               <div>
@@ -102,7 +177,7 @@ export default function TentangPage() {
                   100%
                 </span>
                 <span className="text-[11px] sm:text-xs text-amber-600 dark:text-[#d4af37] font-semibold uppercase tracking-wide">
-                  Produksi In-House
+                  Pendampingan &amp; QC
                 </span>
               </div>
             </div>
@@ -114,26 +189,25 @@ export default function TentangPage() {
       <section className="w-full py-14 sm:py-20 border-t border-slate-200 dark:border-white/[0.07]">
         <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-            
             {/* Kiri: Kenapa ZPack Berbeda */}
             <div className="lg:col-span-5 lg:sticky lg:top-28">
               <span className="inline-block text-xs font-bold text-amber-600 dark:text-[#d4af37] tracking-[1.5px] uppercase mb-2">
-                KOMITMEN PRODUKSI
+                PERJALANAN SEJAK 2018
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
-                Kemasan yang Tepat Meningkatkan Nilai Jual Produk Anda
+                Tumbuh Bersama Banyak UMKM &amp; Brand Lokal
               </h2>
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-                Banyak pemilik brand kesulitan mencari percetakan yang mau membimbing soal pemilihan gramasi kertas, konstruksi lipatan box yang kuat, hingga hasil warna yang tidak meleset. Di ZPack, seluruh proses tersebut kami tangani langsung di workshop kami sendiri.
+                Sejak 2018, ZPack mendampingi banyak UMKM—mulai dari usaha kuliner, produk kecantikan/skincare, hingga kebutuhan ritel, promosi, dan acara—agar memiliki kemasan dan cetakan yang rapi, tepat guna, serta siap bersaing.
               </p>
 
               {/* Highlight Garansi */}
               <div className="pl-4 border-l-2 border-amber-500 dark:border-[#d4af37]">
                 <strong className="block text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide mb-1">
-                  Garansi Cacat Produksi &amp; Fitting Mockup
+                  Garansi Lifetime &amp; Fitting Mockup
                 </strong>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Sebelum produksi massal berjalan, Anda bisa menguji sample dummy fisik terlebih dahulu agar ukuran kemasan benar-benar pas dengan produk Anda.
+                  Sebelum naik cetak massal, desain dan mockup dikonfirmasi hingga fix, serta dilengkapi dukungan garansi lifetime sesuai ketentuan layanan.
                 </p>
               </div>
             </div>
@@ -146,10 +220,10 @@ export default function TentangPage() {
                 </span>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1">
-                    Direct Factory Rate (Harga Langsung Pabrik)
+                    Berpengalaman Sejak 2018 Melayani UMKM
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Diproduksi langsung di fasilitas workshop ZPack tanpa perantara makelar, sehingga struktur harga jauh lebih kompetitif untuk menjaga margin bisnis Anda.
+                    Dipercaya oleh banyak UMKM dan pelaku usaha untuk kebutuhan kemasan produk, cetak promosi, administrasi usaha, hingga undangan.
                   </p>
                 </div>
               </div>
@@ -160,10 +234,10 @@ export default function TentangPage() {
                 </span>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1">
-                    Free Desain &amp; Sample Dummy Gratis
+                    Pendampingan Desain &amp; Mockup
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Belum punya file siap cetak? Tim desain kami siap membantu merancang layout kemasan beserta sample mockup fisik untuk uji coba ukuran sebelum naik cetak.
+                    Belum punya desain? Kami bantu proses desain sekaligus pembuatan mockup agar ukuran dan tampilan sesuai sebelum dinyatakan fix.
                   </p>
                 </div>
               </div>
@@ -174,10 +248,10 @@ export default function TentangPage() {
                 </span>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1">
-                    Material Food-Grade &amp; Ramah Lingkungan
+                    Pilihan Bahan &amp; Opsi Finishing Lengkap
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Tersedia pilihan bahan bersertifikat food-grade (Ivory laminasi dalam anti minyak) hingga bahan Kraft eco-friendly untuk kebutuhan F&amp;B dan kosmetik.
+                    Menyesuaikan kebutuhan produk kuliner, kosmetik, hampers/hardbox, maupun kemasan ramah lingkungan dengan opsi laminasi, foil, emboss, cutting, dan creasing.
                   </p>
                 </div>
               </div>
@@ -188,15 +262,14 @@ export default function TentangPage() {
                 </span>
                 <div>
                   <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-1">
-                    Free Ongkir Se-Kota Bandung &amp; Pengiriman Nasional
+                    Free Ongkir Se-Kota Bandung &amp; Pengiriman Luar Kota
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Pengiriman gratis untuk seluruh area Kota Bandung dan dukungan ekspedisi kargo terpercaya untuk pengiriman ke seluruh wilayah Indonesia.
+                    Layanan pengiriman gratis untuk area Kota Bandung serta dukungan pengiriman ekspedisi/kargo untuk pelanggan di luar kota.
                   </p>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -209,10 +282,10 @@ export default function TentangPage() {
               FASILITAS &amp; TEKNOLOGI MESIN
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-[2.2rem] font-extrabold text-slate-900 dark:text-white leading-tight mb-3">
-              Didukung Lini Produksi Cetak &amp; Finishing Terintegrasi
+              Mesin Produksi Cetak, CTP, Finishing &amp; Format Lebar
             </h2>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
-              Kombinasi mesin cetak offset presisi dan perangkat finishing mekanis memastikan setiap kemasan keluar dengan standar kualitas yang seragam.
+              Pengerjaan didukung CTP, printer Epson A3, mesin cetak offset, potong, pond, laminasi, foil, lem, serta cetak format lebar sesuai jenis produk dan kebutuhan order.
             </p>
           </div>
 
@@ -239,32 +312,32 @@ export default function TentangPage() {
         </div>
       </section>
 
-      {/* 4. ALUR PEMESANAN (Horizontal Editorial Steps) */}
-      <section className="w-full py-14 sm:py-20 border-t border-slate-200 dark:border-white/[0.07]">
+      {/* 4. ALUR KERJA PEMESANAN DETAIL */}
+      <section className="w-full py-14 sm:py-20 border-t border-slate-200 dark:border-white/[0.07] bg-slate-50/60 dark:bg-white/[0.015]">
         <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+          <div className="max-w-2xl mb-12">
             <span className="inline-block text-xs font-bold text-amber-600 dark:text-[#d4af37] tracking-[1.5px] uppercase mb-2">
-              CARA KERJA KAMI
+              ALUR PEMESANAN
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">
-              4 Langkah Mudah Cetak Kemasan di ZPack
+            <h2 className="text-2xl sm:text-3xl lg:text-[2.2rem] font-extrabold text-slate-900 dark:text-white leading-tight mb-3">
+              Proses Terarah dari Konsultasi hingga Pengiriman
             </h2>
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+              Setiap pesanan diproses bertahap agar spesifikasi, desain, dan hasil cetak sesuai dengan kesepakatan.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {workflowSteps.map((flow) => (
-              <div
-                key={flow.step}
-                className="pt-5 border-t-2 border-slate-200 dark:border-white/15 hover:border-amber-500 dark:hover:border-[#d4af37] transition-colors duration-300"
-              >
-                <span className="block text-2xl font-extrabold text-amber-600 dark:text-[#d4af37] font-mono mb-2">
-                  {flow.step}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 border-l-2 border-amber-500/40 dark:border-[#d4af37]/40 pl-6 sm:pl-8">
+            {workflowSteps.map((item) => (
+              <div key={item.step} className="flex flex-col">
+                <span className="text-xs font-mono font-bold text-amber-600 dark:text-[#d4af37] mb-2">
+                  STEP {item.step}
                 </span>
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">
-                  {flow.title}
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  {item.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  {flow.desc}
+                  {item.desc}
                 </p>
               </div>
             ))}
@@ -309,7 +382,6 @@ export default function TentangPage() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }

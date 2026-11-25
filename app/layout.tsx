@@ -40,7 +40,7 @@ export default function RootLayout({
         <div className="fixed inset-0 -z-10 bg-gradient-to-t from-white via-slate-200 to-slate-300 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 transition-colors duration-300 pointer-events-none" />
 
         {/* Konten halaman utama */}
-        <main className="pt-12 overflow-x-clip w-full">{children}</main>
+        <main className="pt-5 overflow-x-clip w-full">{children}</main>
       </body>
     </html>
   );

@@ -3,6 +3,49 @@
 import React, { useState } from 'react';
 import Navbar from "@/components/common/navbar";
 
+type ChannelKey = 'shopee' | 'instagram' | 'tiktok' | 'tiktokShop' | 'facebook';
+
+function ChannelIcon({ name }: { name: ChannelKey }) {
+  switch (name) {
+    case 'shopee':
+      return (
+        <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M6 8h12l-1 12H7L6 8z" />
+          <path d="M9.5 8a2.5 2.5 0 0 1 5 0" />
+          <path d="M14 11.5c0-.8-.7-1.3-1.8-1.3s-1.8.5-1.8 1.2c0 .8.8 1.2 1.8 1.5 1 .3 1.8.7 1.8 1.6 0 .9-.8 1.5-1.9 1.5-1.1 0-1.9-.5-2-1.4" />
+        </svg>
+      );
+    case 'instagram':
+      return (
+        <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case 'tiktok':
+      return (
+        <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+        </svg>
+      );
+    case 'tiktokShop':
+      return (
+        <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 9h14l-1 11H6L5 9z" />
+          <path d="M9 9V6.5a3 3 0 0 1 6 0V9" />
+          <path d="M10.2 14.2a1.8 1.8 0 0 0 3.4-.5v-2.2" />
+        </svg>
+      );
+    case 'facebook':
+      return (
+        <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+          <path d="M13.5 21v-8.2h2.7l.4-3.2h-3.1V7.5c0-.9.3-1.6 1.6-1.6h1.7V3.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.3H8v3.2h2.7V21h2.8z" />
+        </svg>
+      );
+  }
+}
+
 export default function KontakPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -13,12 +56,20 @@ export default function KontakPage() {
 
   const [submitted, setSubmitted] = useState(false);
 
+  // Ganti href di bawah ini dengan link resmi toko & akun ZPack
+  const zpackChannels: { key: ChannelKey; label: string; href: string }[] = [
+    { key: 'shopee', label: 'Shopee', href: 'https://shopee.co.id/' },
+    { key: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/' },
+    { key: 'tiktok', label: 'TikTok', href: 'https://www.tiktok.com/' },
+    { key: 'tiktokShop', label: 'TikTok Shop', href: 'https://www.tiktok.com/shop' },
+    { key: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/' },
+  ];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Format pesan otomatis ke WhatsApp tim ZPack
     const text = `Halo Zpack, saya ${formData.name} (${formData.phone}). Saya ingin konsultasi mengenai ${formData.packageType}. Pesan: ${formData.message}`;
     const encodedUrl = `https://wa.me/6281217780249?text=${encodeURIComponent(text)}`;
-    window.open(encodedUrl, '_blank');
+    window.open(encodedUrl, '_blank', 'noopener,noreferrer');
     setSubmitted(true);
   };
 
@@ -28,7 +79,6 @@ export default function KontakPage() {
 
       {/* 1. HERO / JUDUL HALAMAN */}
       <section className="relative w-full py-12 sm:py-16 lg:py-24 overflow-hidden">
-        {/* Ambient Glow halus */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] sm:w-[780px] h-[260px] rounded-full blur-[110px] -z-10"
@@ -49,12 +99,12 @@ export default function KontakPage() {
         </div>
       </section>
 
-      {/* 2. KARTU INFORMASI KONTAK & FORMULIR (Grid Layout Tanpa Card Kaku) */}
+      {/* 2. INFORMASI KONTAK & FORMULIR KONSULTASI */}
       <section className="w-full py-14 sm:py-20 border-t border-slate-200 dark:border-white/[0.07]">
         <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            
-            {/* Kolom Kiri: Informasi Kontak Langsung */}
+
+            {/* Kolom Kiri: Informasi Kontak Langsung & Saluran ZPack */}
             <div className="lg:col-span-5 flex flex-col space-y-8">
               <div>
                 <span className="inline-block text-xs font-bold text-amber-600 dark:text-[#d4af37] tracking-[1.5px] uppercase mb-2">
@@ -68,7 +118,7 @@ export default function KontakPage() {
                 </p>
               </div>
 
-              {/* List Kontak dengan Garis Kiri Emas */}
+              {/* List Kontak & Ikon Saluran ZPack */}
               <div className="space-y-6 pl-4 border-l-2 border-amber-500/50 dark:border-[#d4af37]/50">
                 <div>
                   <span className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
@@ -107,96 +157,162 @@ export default function KontakPage() {
                     (Buka Senin - Sabtu, 08.00 - 17.00 WIB)
                   </span>
                 </div>
+
+                <div>
+                  <span className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2.5">
+                    Marketplace &amp; Media Sosial ZPack
+                  </span>
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    {zpackChannels.map((channel) => (
+                      <a
+                        key={channel.key}
+                        href={channel.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={channel.label}
+                        title={channel.label}
+                        className="w-10 h-10 rounded-xl bg-white dark:bg-white/[0.05] hover:bg-amber-500/15 dark:hover:bg-[#d4af37]/15 border border-slate-300 dark:border-white/15 hover:border-amber-500 dark:hover:border-[#d4af37] text-slate-800 dark:text-slate-200 hover:text-amber-600 dark:hover:text-[#d4af37] flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5"
+                      >
+                        <ChannelIcon name={channel.key} />
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {seoBadgeSnippet()}
             </div>
 
-            {/* Kolom Kanan: Formulir Pesan Cepat / Langsung ke WhatsApp */}
-            <div className="lg:col-span-7 bg-slate-50/70 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-3xl p-6 sm:p-10 shadow-sm">
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                Kirim Pesan &amp; Konsultasi Kilat
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                Isi formulir di bawah ini. Tombol kirim akan secara otomatis mengarahkan Anda langsung ke WhatsApp resmi ZPack beserta detail pesanan Anda.
-              </p>
+            {/* Kolom Kanan: Formulir Konsultasi ke WhatsApp */}
+            <div className="lg:col-span-7">
+              <div className="p-6 sm:p-8 lg:p-10 rounded-3xl bg-slate-50/80 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10">
+                <span className="inline-block text-xs font-bold text-amber-600 dark:text-[#d4af37] tracking-[1.5px] uppercase mb-2">
+                  FORMULIR KONSULTASI INSTAN
+                </span>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mb-2">
+                  Kirim Detail Kebutuhan Kemasan atau Cetakan
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6">
+                  Isi data di bawah ini, lalu pesan akan otomatis diformat dan diarahkan ke WhatsApp tim ZPack.
+                </p>
 
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                  <div>
-                    <label className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                      Nama / Nama Brand Anda *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Contoh: Budi / Skincare Glow"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-white dark:bg-[#161f30] border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-500 dark:focus:border-[#d4af37] transition-colors"
-                    />
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label
+                        htmlFor="name"
+                        className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2"
+                      >
+                        Nama Lengkap / Brand
+                      </label>
+                      <input
+                        id="name"
+                        type="text"
+                        required
+                        placeholder="Contoh: Budi / Brand Kopi Senja"
+                        value={formData.name}
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (submitted) setSubmitted(false);
+                        }}
+                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-white/[0.05] border border-slate-300 dark:border-white/15 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-amber-500 dark:focus:border-[#d4af37]"
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="phone"
+                        className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2"
+                      >
+                        Nomor WhatsApp
+                      </label>
+                      <input
+                        id="phone"
+                        type="tel"
+                        required
+                        placeholder="Contoh: 0812xxxxxxxx"
+                        value={formData.phone}
+                        onChange={(e) => {
+                          setFormData({ ...formData, phone: e.target.value });
+                          if (submitted) setSubmitted(false);
+                        }}
+                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-white/[0.05] border border-slate-300 dark:border-white/15 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-amber-500 dark:focus:border-[#d4af37]"
+                      />
+                    </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                      Nomor WhatsApp *
+                    <label
+                      htmlFor="packageType"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2"
+                    >
+                      Jenis Kebutuhan / Produk
                     </label>
-                    <input
-                      type="tel"
+                    <select
+                      id="packageType"
+                      value={formData.packageType}
+                      onChange={(e) => {
+                        setFormData({ ...formData, packageType: e.target.value });
+                        if (submitted) setSubmitted(false);
+                      }}
+                      className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-white/15 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-[#d4af37]"
+                    >
+                      <option value="Box Skincare / Kosmetik">Box Skincare / Kosmetik</option>
+                      <option value="Box Makanan / F&B">Box Makanan / F&amp;B</option>
+                      <option value="Hardbox / Hampers">Hardbox / Hampers</option>
+                      <option value="Paper Bag">Paper Bag</option>
+                      <option value="Cetakan Komersial (Nota, Brosur, dll.)">
+                        Cetakan Komersial (Nota, Brosur, dll.)
+                      </option>
+                      <option value="Undangan Digital / Cetak">Undangan Digital / Cetak</option>
+                      <option value="Konsultasi Lainnya">Konsultasi Lainnya</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2"
+                    >
+                      Detail Ukuran, Bahan, Qty &amp; Catatan
+                    </label>
+                    <textarea
+                      id="message"
+                      rows={4}
                       required
-                      placeholder="Contoh: 08123456789"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-white dark:bg-[#161f30] border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-500 dark:focus:border-[#d4af37] transition-colors"
+                      placeholder="Tuliskan perkiraan ukuran, jenis bahan/finishing yang diinginkan, estimasi jumlah (qty), atau jadwal kunjungan workshop..."
+                      value={formData.message}
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (submitted) setSubmitted(false);
+                      }}
+                      className="w-full px-4 py-3 rounded-xl bg-white dark:bg-white/[0.05] border border-slate-300 dark:border-white/15 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-amber-500 dark:focus:border-[#d4af37]"
                     />
                   </div>
-                </div>
 
-                <div>
-                  <label className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                    Kebutuhan / Jenis Produk Kemasan *
-                  </label>
-                  <select
-                    value={formData.packageType}
-                    onChange={(e) => setFormData({ ...formData, packageType: e.target.value })}
-                    className="w-full bg-white dark:bg-[#161f30] border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none focus:border-amber-500 dark:focus:border-[#d4af37] transition-colors"
-                  >
-                    <option value="Box Skincare & Kosmetik">Box Skincare &amp; Kosmetik</option>
-                    <option value="Packaging Food & Takeaway (Makanan)">Packaging Food &amp; Takeaway (Makanan)</option>
-                    <option value="Paperbag Custom">Paperbag Custom</option>
-                    <option value="Label Stiker & Brosur">Label Stiker &amp; Brosur</option>
-                    <option value="Undangan Digital Website">Undangan Digital Website</option>
-                    <option value="Lainnya / Konsultasi Umum">Lainnya / Konsultasi Umum</option>
-                  </select>
-                </div>
+                  <div className="pt-2 flex flex-col sm:flex-row sm:items-center gap-4">
+                    <button
+                      type="submit"
+                      className="inline-flex items-center justify-center px-7 py-3.5 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-[0_0_25px_rgba(212,175,55,0.28)] transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      Kirim Konsultasi via WhatsApp
+                    </button>
 
-                <div>
-                  <label className="block text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                    Detail Pesan / Spesifikasi (Ukuran &amp; Jumlah Perkiraan)
-                  </label>
-                  <textarea
-                    rows={4}
-                    placeholder="Tuliskan ukuran perkiraan (P x L x T) dan jumlah pcs yang ingin dicetak..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full bg-white dark:bg-[#161f30] border border-slate-300 dark:border-white/10 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-amber-500 dark:focus:border-[#d4af37] transition-colors resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-[0_0_25px_rgba(212,175,55,0.3)] transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
-                >
-                  Kirim Pertanyaan via WhatsApp
-                </button>
-              </form>
+                    {submitted && (
+                      <p className="text-xs sm:text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                        Jendela WhatsApp sudah dibuka. Jika tidak terbuka otomatis, klik nomor WA di sebelah kiri.
+                      </p>
+                    )}
+                  </div>
+                </form>
+              </div>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* 3. PETA LOKASI WORKSHOP (Google Maps Embed Placeholder) */}
+      {/* 3. PETA LOKASI WORKSHOP */}
       <section className="w-full py-14 sm:py-20 border-t border-slate-200 dark:border-white/[0.07] bg-slate-50/60 dark:bg-white/[0.015]">
         <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12">
           <div className="text-center max-w-2xl mx-auto mb-10">
@@ -211,7 +327,6 @@ export default function KontakPage() {
             </p>
           </div>
 
-          {/* Kotak Peta Interaktif */}
           <div className="w-full h-[350px] sm:h-[420px] rounded-3xl overflow-hidden border border-slate-300 dark:border-white/10 shadow-md relative bg-slate-200 dark:bg-slate-800">
             <iframe
               title="ZPack Workshop Location"
@@ -227,7 +342,6 @@ export default function KontakPage() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }

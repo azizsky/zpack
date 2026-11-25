@@ -106,7 +106,7 @@ async function deleteFromR2(imgUrl: string) {
   try {
     const r2 = getR2Client();
     const bucketName = process.env.R2_BUCKET_NAME || "zpack";
-    const key = "products/" + imgUrl.split("/products/")[1];
+    const key = "products/" + imgUrl.split("/products/")[1].split("?")[0];
     await r2.send(
       new DeleteObjectCommand({
         Bucket: bucketName,
@@ -212,7 +212,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// PUT: Update produk berdasarkan ID
+// PUT: Update produk berdasarkan ID & bersihkan foto lama di R2 bila diganti
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
@@ -235,6 +235,16 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ success: false, message: "ID produk wajib diisi." }, { status: 400 });
     }
 
+    let oldImgUrl = "";
+    try {
+      const existing: any = await executeD1("SELECT img FROM products WHERE id = ?", [id]);
+      if (Array.isArray(existing) && existing[0]?.img) {
+        oldImgUrl = String(existing[0].img);
+      }
+    } catch {
+      oldImgUrl = "";
+    }
+
     await executeD1(
       `UPDATE products SET
         category = ?, cat_label = ?, title = ?, badge = ?, img = ?,
@@ -255,6 +265,10 @@ export async function PUT(req: NextRequest) {
         id,
       ]
     );
+
+    if (oldImgUrl && oldImgUrl !== img && oldImgUrl.includes("/products/")) {
+      await deleteFromR2(oldImgUrl);
+    }
 
     return NextResponse.json({ success: true, message: "Produk berhasil diperbarui." });
   } catch (err: any) {

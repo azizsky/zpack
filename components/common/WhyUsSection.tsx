@@ -233,9 +233,8 @@ export default function WhyUsSection() {
             </div>
 
           </div>
-
-          {/* Kolom Kanan: Video Showcase (Diberi porsi flex 60% agar ukurannya jauh lebih proporsional & ramping) */}
-          <div className="relative mt-4 lg:mt-0 w-full lg:flex-[0_0_60%] rounded-xl lg:rounded-2xl overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.5)] border border-white/[0.08] bg-black aspect-[16/9] lg:aspect-auto lg:h-[320px]">
+{/* Kolom Kanan: Video Showcase (Lebih proporsional & tidak terlalu lebar) */}
+          <div className="relative mt-4 lg:mt-0 w-full max-w-[460px] mx-auto lg:mx-0 lg:flex-1 lg:max-w-[520px] rounded-xl lg:rounded-2xl overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.5)] border border-white/[0.08] aspect-[16/10] lg:h-[290px]">
             <video
               ref={videoRef}
               src="/production-video.mp4"
@@ -247,9 +246,10 @@ export default function WhyUsSection() {
             />
 
             {/* Tombol Play / Pause Toggle Interaktif */}
-            <button 
+            <button
+              type="button"
               onClick={toggleVideoPlay}
-              className="absolute top-[7.75rem] right-[0.55rem] lg:top-[1.25rem] lg:right-[1.25rem] w-[34px] h-[34px] lg:w-[38px] lg:h-[38px] rounded-full bg-[#0b0d10]/[0.65] hover:bg-blue-950/80 text-white border border-white/20 hover:border-white/40 flex items-center justify-center cursor-pointer backdrop-blur-[8px] transition-all duration-200 hover:scale-108 z-10 shadow-lg"
+              className="absolute top-3 right-3 lg:top-4 lg:right-4 w-[34px] h-[34px] lg:w-[38px] lg:h-[38px] rounded-full bg-[#0b0d10]/[0.65] hover:bg-blue-950/80 text-white border border-white/20 hover:border-white/40 flex items-center justify-center cursor-pointer backdrop-blur-[8px] transition-all duration-200 hover:scale-105 z-10 shadow-lg"
               aria-label="Toggle Video Play/Pause"
             >
               {isPlaying ? (

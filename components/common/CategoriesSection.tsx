@@ -8,7 +8,7 @@ export default function CategoriesSection() {
       title: 'Packaging Makanan',
       slug: 'packaging-makanan',
       icon: '🍱',
-      items: ['Catering box', 'Lunch Box', 'Cake Box', 'Snack Box', 'Box Nasi Kotak'],
+      items: ['Catering box', 'Lunch Box', 'Cake Box', 'Snack Box', 'Rice Boc'],
     },
     {
       title: 'Skincare & Kosmetik',
@@ -20,7 +20,7 @@ export default function CategoriesSection() {
       title: 'Label & Branding',
       slug: 'label-branding',
       icon: '🏷️',
-      items: ['Hang Tag', 'Sticker', 'Label Stiker', 'Sleeve Kemasan'],
+      items: ['Hang Tag', 'Stiker Label', 'Packaging Sleeve'],
     },
     {
       title: 'Promotional Print',
@@ -32,7 +32,7 @@ export default function CategoriesSection() {
       title: 'General Print',
       slug: 'general-print',
       icon: '📚',
-      items: ['Paper Bag', 'Kalender', 'Yasin & Maj\'mu', 'Amplop & Stiker', 'Undangan & Nota'],
+      items: ['Paper Bag', 'Kalender', 'Yasin & Maj\'mu', 'Amplop & Undangan'],
     },
     {
       title: 'Undangan Digital',

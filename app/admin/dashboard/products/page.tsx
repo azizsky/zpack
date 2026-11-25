@@ -19,10 +19,11 @@ export interface ProductItem {
 }
 
 const CATEGORY_OPTIONS = [
+  { value: "food", label: "Packaging Makanan" },
   { value: "skincare", label: "Skincare & Kosmetik" },
-  { value: "food", label: "Food & Takeaway" },
-  { value: "box-custom", label: "Box & Dus Custom" },
-  { value: "paperbag-stiker", label: "Paperbag, Stiker & Cetak" },
+  { value: "label-branding", label: "Label & Branding" },
+  { value: "promotional-print", label: "Promotional Print" },
+  { value: "general-print", label: "General Print" },
   { value: "undangan-digital", label: "Undangan Digital" },
 ];
 
@@ -151,7 +152,6 @@ export default function AdminProductsPage() {
     setStatusMsg("");
   };
 
-  // Klik Edit pada daftar -> isi ulang form input dengan data dari DB/state
   const handleEdit = (item: ProductItem) => {
     revokeIfBlob(photoPreview);
     setForm({
@@ -380,7 +380,6 @@ export default function AdminProductsPage() {
             </div>
           </div>
 
-          {/* Hanya Estimasi Harga & MOQ (minPrice dihapus) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             <div>
               <label className={labelClass}>Estimasi Harga (priceEst) *</label>
